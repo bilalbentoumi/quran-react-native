@@ -1,20 +1,57 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import HomeScreen from './screens/HomeScreen'
+import ShowChapter from './screens/ShowChapter'
+import heart from './assets/heart.png'
+import cog from './assets/cog.png'
+import dots from './assets/dots.png'
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={ HomeScreen } options={ { ...header, title: 'Quran App' } } />
+        <Stack.Screen name="ShowChapter" component={ ShowChapter } options={ { ...header, title: 'ShowChapter' } } />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const header = {
+  headerStyle: {
+    backgroundColor: '#15803d',
   },
-});
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+  headerRight: () => getActions()
+}
+
+const getActions = () => (
+  <View style={styles.actions}>
+    <TouchableOpacity style={styles.action}>
+      <Image source={ heart } style={ { width: 20, height: 20 } } resizeMode="contain" />
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.action}>
+      <Image source={ cog } style={ { width: 20, height: 20 } } resizeMode="contain" />
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.action}>
+      <Image source={ dots } style={ { width: 20, height: 20 } } resizeMode="contain" />
+    </TouchableOpacity>
+  </View>
+)
+
+const styles = StyleSheet.create({
+  actions: {
+    flexDirection: 'row'
+  },
+  action: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 25
+  },
+})
