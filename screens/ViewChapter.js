@@ -1,6 +1,9 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useEffect, useState } from 'react'
 import verseBullet from '../assets/images/verse.png'
+import play from '../assets/images/play.png'
+import copy from '../assets/images/copy.png'
+import favorite from '../assets/images/favorite.png'
 
 export default function ViewChapter({ route }) {
 
@@ -27,12 +30,23 @@ export default function ViewChapter({ route }) {
 
   return (
     <ScrollView style={ styles.container }>
+      <View style={ styles.verses }>
         { chapter.verses && chapter.verses.map((verse, index) => (
-          <View style={ styles.verse } key={ index }>
-            <Image source={ verseBullet } style={ styles.verseBullet }></Image>
-            <Text style={ styles.verseText }>{ verse }</Text>
+          <View style={ styles.verseContainer } key={ index }>
+            <View style={ styles.verseActions }>
+              <Image source={ play } resizeMode="contain" style={ styles.verseAction }></Image>
+              <Image source={ copy } resizeMode="contain" style={ styles.verseAction }></Image>
+              <Image source={ favorite } resizeMode="contain" style={ styles.verseAction }></Image>
+            </View>
+            <Text style={ styles.verse }>
+              <Image source={ verseBullet } resizeMode="contain" style={ styles.verseBullet }></Image>
+              <Text>
+                { verse }
+              </Text>
+            </Text>
           </View>
         )) }
+      </View>
     </ScrollView>
   )
 }
@@ -49,27 +63,44 @@ const styles = StyleSheet.create({
     color: '#808080'
   },
   container: {
-    backgroundColor: '#fff'
+    backgroundColor: '#f8f8f8'
+  },
+  verses: {
+    padding: 20,
+    paddingBottom: 10
+  },
+  verseContainer: {
+    backgroundColor: '#fff',
+    paddingVertical: 20,
+    marginBottom: 10,
+    borderRadius: 10,
+    borderBottomWidth: 1,
+    borderColor: '#f1f1f1'
+  },
+  verseActions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingHorizontal: 20,
+    marginBottom: 20
+  },
+  verseAction: {
+    width: 20,
+    height: 20,
+    marginLeft: 20
   },
   verse: {
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderColor: '#eee',
-    padding: 20
-  },
-  verseBullet: {
-    width: 22,
-    height: 22,
-    marginLeft: 10,
-    marginTop: 8
-  },
-  verseText: {
     flexShrink: 1,
     flexGrow: 1,
     fontSize: 22,
     fontWeight: 'bold',
     textAlign: 'right',
-    lineHeight: 36
+    lineHeight: 36,
+    paddingHorizontal: 20
+  },
+  verseBullet: {
+    width: 40,
+    height: 26,
+    marginLeft: 10,
+    marginTop: 8
   }
 })
