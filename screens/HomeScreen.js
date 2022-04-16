@@ -1,13 +1,11 @@
-import { StyleSheet, View, ScrollView } from 'react-native'
-import ListItem from '../components/ListItem'
-import chapters from '../data/chapters.json'
+import { StyleSheet, ScrollView } from 'react-native'
+import ChapterListIem from '../components/ChapterList'
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
+
   return (
       <ScrollView style={ styles.container }>
-        { chapters.map((chapter) => (
-          <ListItem chapter={ chapter } navigation={ navigation } key={ chapter.id }>Bilal Bentoumi</ListItem>
-        )) }
+        <ChapterListIem />
       </ScrollView>
   )
 }

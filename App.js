@@ -3,9 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import HomeScreen from './screens/HomeScreen'
 import ViewChapter from './screens/ViewChapter'
-import heart from './assets/heart.png'
-import cog from './assets/cog.png'
-import dots from './assets/dots.png'
+import heart from './assets/images/heart.png'
+import cog from './assets/images/cog.png'
+import dots from './assets/images/dots.png'
 
 const Stack = createNativeStackNavigator()
 
@@ -13,8 +13,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={ HomeScreen } options={ { ...header, title: 'Quran App' } } />
-        <Stack.Screen name="ViewChapter" component={ ViewChapter } options={ { ...header, title: 'ViewChapter' } } />
+        <Stack.Screen name="Home" component={ HomeScreen } options={ homeScreenHeader } />
+        <Stack.Screen name="ViewChapter" component={ ViewChapter } options={ showChapterHeader } />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -27,7 +27,17 @@ const header = {
   headerTintColor: '#fff',
   headerTitleStyle: {
     fontWeight: 'bold',
-  },
+  }
+}
+
+const homeScreenHeader = {
+  ...header,
+  title: 'Quran App',
+  headerRight: () => getActions()
+}
+const showChapterHeader = {
+  ...header,
+  title: 'Show Chapter',
   headerRight: () => getActions()
 }
 

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View, ImageBackground } from 'react-native'
-import chapterBg from '../assets/chapter-number.png'
+import chapterBg from '../assets/images/chapter-number.png'
 
-export default function ListItem({ navigation, chapter }) {
+export default function ChapterListItem({ navigation, chapter }) {
 
   function viewChapter(id) {
     navigation.navigate('ViewChapter', { id: id })

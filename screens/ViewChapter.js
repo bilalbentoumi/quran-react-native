@@ -1,24 +1,32 @@
-import {ImageBackground, ScrollView, StyleSheet, Text, View} from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { useEffect, useState } from 'react'
 import chapters from '../data/chapters.json'
-import verseBg from '../assets/verse-number.png'
+import verseBullet from '../assets/images/verse.png'
 
-export default function ViewChapter({ navigation, route }) {
+export default function ViewChapter({ route }) {
 
-  const chapter = chapters.filter((chapter) => {
-    return chapter.id === route.params.id
-  }).pop()
+  const [ chapter, setChapter ] = useState(null)
 
-  const verses = chapter.content.trim().split(/\[[0-9]+\]/).filter(e => e)
+  useEffect(() => {
+
+    setChapter(() => {
+      let chapter = chapters.filter(chapter => chapter.id === route.params.id).pop()
+      chapter.verses = chapter.content.trim().split(/\[[0-9]+\]/).filter(e => e)
+      return chapter
+    })
+
+  }, [])
+
+  if (!chapter) {
+    return <Text>Loading</Text>
+  }
 
   return (
     <ScrollView style={ styles.container }>
-        { verses.map((verse, index) => (
+        { chapter && chapter.verses.map((verse, index) => (
           <View style={ styles.verse } key={ index }>
-
+            <Image source={ verseBullet } style={ styles.verseBullet }></Image>
             <Text style={ styles.verseText }>{ verse }</Text>
-            <ImageBackground source={ verseBg } resizeMode="cover" style={ styles.verseNumber }>
-              <Text style={ styles.verseNumberText }>{ (index + 1) }</Text>
-            </ImageBackground>
           </View>
         )) }
     </ScrollView>
@@ -36,16 +44,11 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
     padding: 20
   },
-  verseNumber: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10
-  },
-  verseNumberText: {
-    fontWeight: 'bold',
-    color: '#166534FF'
+  verseBullet: {
+    width: 22,
+    height: 22,
+    marginLeft: 10,
+    marginTop: 8
   },
   verseText: {
     flexShrink: 1,
