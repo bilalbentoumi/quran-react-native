@@ -14,7 +14,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={ HomeScreen } options={ homeScreenHeader } />
-        <Stack.Screen name="ViewChapter" component={ ViewChapter } options={ showChapterHeader } />
+        <Stack.Screen name="ViewChapter" component={ ViewChapter } options={ viewChapterHeader } />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -35,11 +35,11 @@ const homeScreenHeader = {
   title: 'Quran App',
   headerRight: () => getActions()
 }
-const showChapterHeader = {
+const viewChapterHeader = ({ route }) => ({
   ...header,
-  title: 'Show Chapter',
+  title: route.params.name,
   headerRight: () => getActions()
-}
+})
 
 const getActions = () => (
   <View style={styles.actions}>

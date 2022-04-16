@@ -1,6 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useEffect, useState } from 'react'
-import chapters from '../data/chapters.json'
 import verseBullet from '../assets/images/verse.png'
 
 export default function ViewChapter({ route }) {
@@ -9,9 +8,10 @@ export default function ViewChapter({ route }) {
 
   useEffect(() => {
 
+    let chapter = route.params.chapter
+
     setChapter(() => {
-      let chapter = chapters.filter(chapter => chapter.id === route.params.id).pop()
-      chapter.verses = chapter.content.trim().split(/\[[0-9]+\]/).filter(e => e)
+      chapter.verses = chapter.content.trim().split(/\s*\[[0-9]+\]\s*/).filter(a => a)
       return chapter
     })
 
@@ -27,7 +27,7 @@ export default function ViewChapter({ route }) {
 
   return (
     <ScrollView style={ styles.container }>
-        { chapter && chapter.verses.map((verse, index) => (
+        { chapter.verses && chapter.verses.map((verse, index) => (
           <View style={ styles.verse } key={ index }>
             <Image source={ verseBullet } style={ styles.verseBullet }></Image>
             <Text style={ styles.verseText }>{ verse }</Text>

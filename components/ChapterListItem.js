@@ -3,12 +3,12 @@ import chapterBg from '../assets/images/chapter-number.png'
 
 export default function ChapterListItem({ navigation, chapter }) {
 
-  function viewChapter(id) {
-    navigation.navigate('ViewChapter', { id: id })
+  function viewChapter(chapter) {
+    navigation.navigate('ViewChapter', { name: chapter.name_pron_en, chapter: chapter })
   }
 
   return (
-    <TouchableOpacity style={ styles.listItem } onPress={ () => viewChapter(chapter.id) }>
+    <TouchableOpacity style={ styles.listItem } onPress={ () => viewChapter(chapter) }>
         <ImageBackground source={ chapterBg } resizeMode="cover" style={ styles.chapterNumber }>
           <Text style={ styles.chapterNumberText }>{ chapter.id }</Text>
         </ImageBackground>
