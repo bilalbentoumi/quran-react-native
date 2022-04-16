@@ -18,7 +18,11 @@ export default function ViewChapter({ route }) {
   }, [])
 
   if (!chapter) {
-    return <Text>Loading</Text>
+    return (
+      <View style={ styles.loadingContainer }>
+        <Text style={ styles.loadingText }>Loading...</Text>
+      </View>
+    )
   }
 
   return (
@@ -34,6 +38,16 @@ export default function ViewChapter({ route }) {
 }
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  loadingText: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: '#808080'
+  },
   container: {
     backgroundColor: '#fff'
   },
