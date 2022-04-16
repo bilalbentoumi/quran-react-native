@@ -3,22 +3,28 @@ import chapterBg from '../assets/chapter-number.png'
 
 export default function ListItem({ navigation, chapter }) {
 
-  function goToChapter(id) {
-    navigation.navigate('ShowChapter', { id: id })
+  function viewChapter(id) {
+    navigation.navigate('ViewChapter', { id: id })
   }
 
   return (
-    <TouchableOpacity style={ styles.listItem } onPress={ () => goToChapter(chapter.id) }>
+    <TouchableOpacity style={ styles.listItem } onPress={ () => viewChapter(chapter.id) }>
         <ImageBackground source={ chapterBg } resizeMode="cover" style={ styles.chapterNumber }>
           <Text style={ styles.chapterNumberText }>{ chapter.id }</Text>
         </ImageBackground>
-      <View style={ {flexGrow: 1} }>
+      <View style={ { flexGrow: 1 } }>
         <Text style={ styles.name }>{ chapter.name_pron_en }</Text>
-        <Text style={ styles.subName }>{ chapter.name_ar }</Text>
+        <View style={ { flexDirection: 'row', alignItems: 'center' } }>
+          <Text style={ styles.class }>
+            { chapter.class === 'مكية' ? 'MECCAN' : 'MEDINAN' }
+          </Text>
+          <Text style={ styles.bullet }>•</Text>
+          <Text style={ styles.versesNumber }>
+            { chapter.verses_number  + ' VERSES' }
+          </Text>
+        </View>
       </View>
-      <View style={ styles.versesNumber }>
-        <Text style={ styles.versesNumberText }>{ chapter.verses_number + ' Ayat' }</Text>
-      </View>
+      <Text style={ styles.nameAr }>{ chapter.name_ar }</Text>
     </TouchableOpacity>
   )
 }
@@ -30,7 +36,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#eee',
     flexDirection: 'row',
-    alignItems: 'flex-start'
+    alignItems: 'center'
   },
   chapterNumber: {
     width: 40,
@@ -48,24 +54,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#484b48'
   },
-  subName: {
-    fontSize: 12,
+  nameAr: {
+    fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'left',
+    color: '#484b48'
+  },
+  bullet: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#9CA3AFFF',
+    paddingHorizontal: 5
+  },
+  class: {
+    fontSize: 12,
     color: '#9CA3AFFF'
   },
   versesNumber: {
-    marginTop: 10,
-    backgroundColor: '#F3F4F6FF',
-    paddingHorizontal: 10,
-    paddingVertical: 2,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  versesNumberText: {
-    color: '#9CA3AFFF',
     fontSize: 12,
-    fontWeight: 'bold'
-  },
+    color: '#9CA3AFFF'
+  }
 })

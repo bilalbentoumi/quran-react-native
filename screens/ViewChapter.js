@@ -2,7 +2,7 @@ import {ImageBackground, ScrollView, StyleSheet, Text, View} from 'react-native'
 import chapters from '../data/chapters.json'
 import verseBg from '../assets/verse-number.png'
 
-export default function ShowChapter({ navigation, route }) {
+export default function ViewChapter({ navigation, route }) {
 
   const chapter = chapters.filter((chapter) => {
     return chapter.id === route.params.id

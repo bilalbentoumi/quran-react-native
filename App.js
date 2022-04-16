@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import HomeScreen from './screens/HomeScreen'
-import ShowChapter from './screens/ShowChapter'
+import ViewChapter from './screens/ViewChapter'
 import heart from './assets/heart.png'
 import cog from './assets/cog.png'
 import dots from './assets/dots.png'
@@ -14,7 +14,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={ HomeScreen } options={ { ...header, title: 'Quran App' } } />
-        <Stack.Screen name="ShowChapter" component={ ShowChapter } options={ { ...header, title: 'ShowChapter' } } />
+        <Stack.Screen name="ViewChapter" component={ ViewChapter } options={ { ...header, title: 'ViewChapter' } } />
       </Stack.Navigator>
     </NavigationContainer>
   );
