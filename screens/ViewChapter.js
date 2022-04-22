@@ -1,7 +1,7 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useEffect, useState } from 'react'
-import verseBullet from '../assets/images/verse.png'
 import * as Font from 'expo-font'
+import verseBullet from '../assets/images/verse.png'
 
 export default function ViewChapter({ route }) {
 
@@ -12,10 +12,7 @@ export default function ViewChapter({ route }) {
 
     let chapter = route.params.chapter
 
-    setChapter(() => {
-      chapter.verses = chapter.content.trim().split(/\s*\[[0-9]+\]\s*/).filter(a => a)
-      return chapter
-    })
+    setChapter(chapter)
 
     await loadFonts()
 

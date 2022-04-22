@@ -11,7 +11,7 @@ export default function ChapterListItem({ navigation, chapter }) {
   });
 
   function viewChapter(chapter) {
-    navigation.navigate('ViewChapter', { name: chapter.name_pron_en, chapter: chapter })
+    navigation.navigate('ViewChapter', { name: chapter.namePron, chapter: chapter })
   }
 
   if (!fontLoaded) {
@@ -24,18 +24,18 @@ export default function ChapterListItem({ navigation, chapter }) {
           <Text style={ styles.chapterNumberText }>{ chapter.id }</Text>
         </ImageBackground>
       <View style={ { flexGrow: 1 } }>
-        <Text style={ styles.name }>{ chapter.name_pron_en }</Text>
+        <Text style={ styles.name }>{ chapter.namePron }</Text>
         <View style={ { flexDirection: 'row', alignItems: 'center' } }>
           <Text style={ styles.class }>
             { chapter.class === 'مكية' ? 'MECCAN' : 'MEDINAN' }
           </Text>
           <Text style={ styles.bullet }>•</Text>
           <Text style={ styles.versesNumber }>
-            { chapter.verses_number  + ' VERSES' }
+            { chapter.versesNumber  + ' VERSES' }
           </Text>
         </View>
       </View>
-      <Text style={ styles.nameAr }>{ chapter.name_ar }</Text>
+      <Text style={ styles.nameAr }>{ chapter.nameAr }</Text>
     </TouchableOpacity>
   )
 }
