@@ -1,15 +1,14 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useEffect, useState } from 'react'
 import verseBullet from '../assets/images/verse.png'
-import play from '../assets/images/play.png'
-import copy from '../assets/images/copy.png'
-import favorite from '../assets/images/favorite.png'
+import * as Font from 'expo-font'
 
 export default function ViewChapter({ route }) {
 
   const [ chapter, setChapter ] = useState(null)
+  const [ fontLoaded, setFontLoaded ] = useState(false)
 
-  useEffect(() => {
+  useEffect(async () => {
 
     let chapter = route.params.chapter
 
@@ -18,9 +17,20 @@ export default function ViewChapter({ route }) {
       return chapter
     })
 
+    await loadFonts()
+
   }, [])
 
-  if (!chapter) {
+  async function loadFonts() {
+    await Font.loadAsync({
+      'AlQalamQuran': require('../assets/fonts/AlQalamQuran.ttf'),
+      'PdmsIslamicFont': require('../assets/fonts/PdmsIslamicFont.ttf'),
+      'PdmsSaleemQuranFont': require('../assets/fonts/PdmsSaleemQuranFont.ttf')
+    });
+    setFontLoaded(true);
+  }
+
+  if (!chapter || !fontLoaded) {
     return (
       <View style={ styles.loadingContainer }>
         <Text style={ styles.loadingText }>Loading...</Text>
@@ -33,11 +43,6 @@ export default function ViewChapter({ route }) {
       <View style={ styles.verses }>
         { chapter.verses && chapter.verses.map((verse, index) => (
           <View style={ styles.verseContainer } key={ index }>
-            <View style={ styles.verseActions }>
-              <Image source={ play } resizeMode="contain" style={ styles.verseAction }></Image>
-              <Image source={ copy } resizeMode="contain" style={ styles.verseAction }></Image>
-              <Image source={ favorite } resizeMode="contain" style={ styles.verseAction }></Image>
-            </View>
             <Text style={ styles.verse }>
               <Image source={ verseBullet } resizeMode="contain" style={ styles.verseBullet }></Image>
               <Text>
@@ -77,29 +82,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#f1f1f1'
   },
-  verseActions: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 20,
-    marginBottom: 20
-  },
-  verseAction: {
-    width: 20,
-    height: 20,
-    marginLeft: 20
-  },
   verse: {
     flexShrink: 1,
     flexGrow: 1,
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 34,
+    fontFamily: 'PdmsIslamicFont',
     textAlign: 'right',
-    lineHeight: 36,
+    lineHeight: 40,
     paddingHorizontal: 20
   },
   verseBullet: {
     width: 40,
-    height: 26,
+    height: 20,
     marginLeft: 10,
     marginTop: 8
   }

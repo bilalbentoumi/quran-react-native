@@ -1,10 +1,21 @@
 import { StyleSheet, Text, TouchableOpacity, View, ImageBackground } from 'react-native'
+import { useFonts } from 'expo-font'
 import chapterBg from '../assets/images/chapter-number.png'
 
 export default function ChapterListItem({ navigation, chapter }) {
 
+  const [ fontLoaded ] = useFonts({
+    'AlQalamQuran': require('../assets/fonts/AlQalamQuran.ttf'),
+    'PdmsIslamicFont': require('../assets/fonts/PdmsIslamicFont.ttf'),
+    'PdmsSaleemQuranFont': require('../assets/fonts/PdmsSaleemQuranFont.ttf'),
+  });
+
   function viewChapter(chapter) {
     navigation.navigate('ViewChapter', { name: chapter.name_pron_en, chapter: chapter })
+  }
+
+  if (!fontLoaded) {
+    return null;
   }
 
   return (
@@ -55,8 +66,9 @@ const styles = StyleSheet.create({
     color: '#484b48'
   },
   nameAr: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 28,
+    marginTop: -10,
+    fontFamily: 'AlQalamQuran',
     color: '#484b48'
   },
   bullet: {
