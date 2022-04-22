@@ -1,33 +1,18 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useEffect, useState } from 'react'
-import * as Font from 'expo-font'
+import useLoadFonts from '../hooks/useLoadFonts'
 import verseBullet from '../assets/images/verse.png'
 
 export default function ViewChapter({ route }) {
 
   const [ chapter, setChapter ] = useState(null)
-  const [ fontLoaded, setFontLoaded ] = useState(false)
+  const fontsLoaded = useLoadFonts()
 
   useEffect(async () => {
-
-    let chapter = route.params.chapter
-
-    setChapter(chapter)
-
-    await loadFonts()
-
+    setChapter(route.params.chapter)
   }, [])
 
-  async function loadFonts() {
-    await Font.loadAsync({
-      'AlQalamQuran': require('../assets/fonts/AlQalamQuran.ttf'),
-      'PdmsIslamicFont': require('../assets/fonts/PdmsIslamicFont.ttf'),
-      'PdmsSaleemQuranFont': require('../assets/fonts/PdmsSaleemQuranFont.ttf')
-    });
-    setFontLoaded(true);
-  }
-
-  if (!chapter || !fontLoaded) {
+  if (!chapter || !fontsLoaded) {
     return (
       <View style={ styles.loadingContainer }>
         <Text style={ styles.loadingText }>Loading...</Text>
@@ -55,6 +40,7 @@ export default function ViewChapter({ route }) {
 
 const styles = StyleSheet.create({
   loadingContainer: {
+    backgroundColor: '#f8f8f8',
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center'
