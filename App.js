@@ -1,15 +1,25 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { useFonts } from 'expo-font'
+import LoadingScreen from './screens/LoadingScreen'
 import HomeScreen from './screens/HomeScreen'
 import ViewChapter from './screens/ViewChapter'
 import heart from './assets/images/heart.png'
 import cog from './assets/images/cog.png'
 import dots from './assets/images/dots.png'
+import fonts from "./constants/Fonts";
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
+
+  const [ fontsLoaded ] = useFonts(fonts)
+
+  if (!fontsLoaded) {
+    return <LoadingScreen/>
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -22,11 +32,11 @@ export default function App() {
 
 const header = {
   headerStyle: {
-    backgroundColor: '#15803d',
+    backgroundColor: '#15803d'
   },
   headerTintColor: '#fff',
   headerTitleStyle: {
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   }
 }
 

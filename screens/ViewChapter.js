@@ -1,23 +1,18 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useEffect, useState } from 'react'
-import useLoadFonts from '../hooks/useLoadFonts'
+import LoadingScreen from './LoadingScreen'
 import verseBullet from '../assets/images/verse.png'
 
 export default function ViewChapter({ route }) {
 
   const [ chapter, setChapter ] = useState(null)
-  const fontsLoaded = useLoadFonts()
 
   useEffect(async () => {
     setChapter(route.params.chapter)
   }, [])
 
-  if (!chapter || !fontsLoaded) {
-    return (
-      <View style={ styles.loadingContainer }>
-        <Text style={ styles.loadingText }>Loading...</Text>
-      </View>
-    )
+  if (!chapter) {
+    return <LoadingScreen />
   }
 
   return (

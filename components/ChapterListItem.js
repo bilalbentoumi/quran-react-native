@@ -1,17 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View, ImageBackground } from 'react-native'
-import useLoadFonts from '../hooks/useLoadFonts'
 import chapterBg from '../assets/images/chapter-number.png'
 
 export default function ChapterListItem({ navigation, chapter }) {
 
-  const fontsLoaded = useLoadFonts()
-
   function viewChapter(chapter) {
     navigation.navigate('ViewChapter', { name: chapter.namePron, chapter: chapter })
-  }
-
-  if (!fontsLoaded) {
-    return null;
   }
 
   return (
